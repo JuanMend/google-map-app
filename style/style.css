@@ -23,3 +23,48 @@ body {
 	top: 100px;
 	left: 100px;
 }
+
+.search-container {
+	position: absolute;
+	width: 400px;
+	height: 60px;
+	background-color: #454e53;
+	z-index: 100;
+	top: 230px;
+	left: 100px;
+	border-radius: 30px;
+	display: flex;
+}
+
+.search-container input {
+	flex-grow: 1;
+	background-color: transparent;
+	border: none;
+	font-size: 25px;
+	color: white;
+	outline: none;
+}
+
+.search {
+	display: flex;
+	flex-grow: 1;
+	align-items: center;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+.search i {
+	font-size: 25px;
+	color: white;
+}
+
+.store-list-container {
+	position: absolute;
+	background: white;
+	width: 400px;
+	z-index: 100;
+	top: 320px;
+	left: 100px;
+	border-radius: 30px;
+	bottom: 20px;
+}

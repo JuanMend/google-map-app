@@ -11,7 +11,35 @@ function initMap() {
 		mapTypeId: 'roadmap'
 	});
 	showStoreMarkers();
+	displayStores();
 	infoWindow = new google.maps.InfoWindow();
+}
+
+function displayStores() {
+	let storesHtml = '';
+	stores.forEach((store, index) => {
+		let address = store.addressLines;
+		let phone = store.phoneNumber;
+
+		storesHtml += `
+        <div class="store-container">
+        <div class="store-container-background">
+            <div class="store-info-container">
+            <div class="store-address">
+                <span>${address[0]}</span>
+                <span>${address[1]}</span>
+            </div>
+            <div class="store-phone-number">${phone}</div>
+        </div>
+            <div class="store-number-container">
+                <div class="store-number">${index}</div>
+            </div>
+        </div>
+    </div>
+    `;
+	});
+
+	document.querySelector('.stores-list').innerHTML = storesHtml;
 }
 
 function showStoreMarkers() {

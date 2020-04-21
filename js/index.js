@@ -10,12 +10,50 @@ function initMap() {
 		zoom: 11,
 		mapTypeId: 'roadmap'
 	});
-	showStoreMarkers();
-	displayStores();
 	infoWindow = new google.maps.InfoWindow();
+	// showStoreMarkers();
+	// setOnClickListener();
+	// displayStores();
 }
 
-function displayStores() {
+function searchStores() {
+	let foundStores = [];
+	let zipCode = document.getElementById('zip-code-input').value;
+
+	if (zipCode) {
+		stores.forEach((store, index) => {
+			let postal = store.address.postalCode.substring(0, 5);
+			if (postal == zipCode) {
+				foundStores.push(store);
+			}
+		});
+	} else {
+		foundStores = stores;
+	}
+	clearLocations();
+	displayStores(foundStores);
+	showStoreMarkers(foundStores);
+	setOnClickListener();
+}
+
+function clearLocations() {
+	infoWindow.close();
+	for (var i = 0; i < markers.length; i++) {
+		markers[i].setMap(null);
+	}
+	markers.length = 0;
+}
+
+function setOnClickListener() {
+	let storeElements = document.querySelectorAll('.store-container');
+	storeElements.forEach(function(el, index) {
+		el.addEventListener('click', function() {
+			new google.maps.event.trigger(markers[index], 'click');
+		});
+	});
+}
+
+function displayStores(stores) {
 	let storesHtml = '';
 	stores.forEach((store, index) => {
 		let address = store.addressLines;
@@ -32,7 +70,7 @@ function displayStores() {
             <div class="store-phone-number">${phone}</div>
         </div>
             <div class="store-number-container">
-                <div class="store-number">${index}</div>
+                <div class="store-number">${index + 1}</div>
             </div>
         </div>
     </div>
@@ -42,7 +80,7 @@ function displayStores() {
 	document.querySelector('.stores-list').innerHTML = storesHtml;
 }
 
-function showStoreMarkers() {
+function showStoreMarkers(stores) {
 	let bounds = new google.maps.LatLngBounds();
 	stores.forEach((store, index) => {
 		let latlng = new google.maps.LatLng(store.coordinates.latitude, store.coordinates.longitude);

@@ -11,27 +11,32 @@ function initMap() {
 		mapTypeId: 'roadmap'
 	});
 	showStoreMarkers();
+	infoWindow = new google.maps.InfoWindow();
 }
 
 function showStoreMarkers() {
+	let bounds = new google.maps.LatLngBounds();
 	stores.forEach((store, index) => {
 		let latlng = new google.maps.LatLng(store.coordinates.latitude, store.coordinates.longitude);
 
 		let name = store.name;
 		let address = store.addressLines[0];
-		createMarker(latlng, name, address);
+		createMarker(latlng, name, address, index);
+		bounds.extend(latlng);
 	});
+	map.fitBounds(bounds);
 }
 
-function createMarker(latlng, name, address) {
+function createMarker(latlng, name, address, index) {
 	var html = '<b>' + name + '</b> <br/>' + address;
 	var marker = new google.maps.Marker({
 		map: map,
-		position: latlng
+		position: latlng,
+		label: `${index + 1}`
 	});
-	// google.maps.event.addListener(marker, 'click', function() {
-	//   infoWindow.setContent(html);
-	//   infoWindow.open(map, marker);
-	// });
+	google.maps.event.addListener(marker, 'click', function() {
+		infoWindow.setContent(html);
+		infoWindow.open(map, marker);
+	});
 	markers.push(marker);
 }

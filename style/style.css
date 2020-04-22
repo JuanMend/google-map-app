@@ -99,8 +99,16 @@ body {
 
 .store-container-background {
 	display: flex;
-	padding-left: 5px;
-	padding-right: 5px;
+	padding-left: 8px;
+	padding-right: 8px;
+	margin-top: 12px;
+	margin-bottom: 12px;
+	border-radius: 18px;
+	transition: all 0.4s ease-in-out;
+}
+
+.store-container-background:hover {
+	background-color: #ccc;
 }
 
 .stores-list {

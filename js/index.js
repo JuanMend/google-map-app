@@ -4,16 +4,13 @@ let infoWindow;
 let locationSelect;
 
 function initMap() {
-	let losAngeles = { lat: 34.06338, lng: -118.35808 };
+	let Dallas = { lat: 32.7766642, lng: -96.7969879 };
 	map = new google.maps.Map(document.getElementById('map'), {
-		center: losAngeles,
+		center: Dallas,
 		zoom: 11,
 		mapTypeId: 'roadmap'
 	});
 	infoWindow = new google.maps.InfoWindow();
-	// showStoreMarkers();
-	// setOnClickListener();
-	// displayStores();
 }
 
 function searchStores() {
@@ -58,6 +55,7 @@ function displayStores(stores) {
 	stores.forEach((store, index) => {
 		let address = store.addressLines;
 		let phone = store.phoneNumber;
+		let brand = store.brandName;
 
 		storesHtml += `
         <div class="store-container">
@@ -95,7 +93,7 @@ function showStoreMarkers(stores) {
 
 function createMarker(latlng, name, address, index) {
 	var html = '<b>' + name + '</b> <br/>' + address;
-	var marker = new google.maps.Marker({
+	let marker = new google.maps.Marker({
 		map: map,
 		position: latlng,
 		label: `${index + 1}`
